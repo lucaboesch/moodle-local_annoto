@@ -761,3 +761,15 @@ function local_annoto_get_deployment_domain() {
     $settings = get_config('local_annoto');
     return $settings->deploymentdomain != 'custom' ? $settings->deploymentdomain : $settings->customdomain;
 }
+
+function local_annoto_extend_navigation_course(navigation_node $navigation) {
+    global $PAGE;
+    $node = navigation_node::create(get_string('annotodashboard', 'local_annoto'),
+        new moodle_url('/local/annoto/dashboard.php', ['courseid' => $PAGE->course->id]),
+        navigation_node::TYPE_SETTING,
+        null,
+        null,
+        null);
+    $navigation->add_node($node);
+}
+

@@ -54,6 +54,7 @@ If enabled, Annoto dashboard will be automatically added to all the courses.
 If disabled the Annoto dashboard can be added manually from the “+ Add an activity or resource” on the desired course'\n
 Note: Annoto Dashboard LTI external tool must be configured in the Site administration.
 EOD;
+$string['annotodashboard'] = 'Annoto Dashboard';
 $string['externaltoolsettings'] = 'Annoto dashboard (LTI)';
 $string['lti_activity_name'] = 'Annoto Dashboard';
 $string['managementdashboard'] = 'Dashboard manager roles';
