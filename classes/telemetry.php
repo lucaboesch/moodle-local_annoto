@@ -253,8 +253,10 @@ class telemetry {
         if ($host === '') {
             return 'production';
         }
-        if ($host === 'localhost' || preg_match('/\.(local|localhost|test)$/', $host)
-                || preg_match('/^(127\.|10\.|192\.168\.)/', $host)) {
+        if (
+            $host === 'localhost' || preg_match('/\.(local|localhost|test)$/', $host)
+                || preg_match('/^(127\.|10\.|192\.168\.)/', $host)
+        ) {
             return 'dev';
         }
         $tokens = preg_split('/[.\-_]/', $host);
@@ -410,7 +412,8 @@ class telemetry {
                    FROM {course_modules_completion} cmc
                    JOIN {local_annoto_completion} ac ON ac.cmid = cmc.coursemoduleid
                   WHERE ac.enabled = :enabled AND cmc.completionstate > 0 AND cmc.timemodified >= :since",
-                ['enabled' => self::COMPLETION_TRACKING_AUTOMATIC, 'since' => time() - self::USAGE_WINDOW]);
+                ['enabled' => self::COMPLETION_TRACKING_AUTOMATIC, 'since' => time() - self::USAGE_WINDOW]
+            );
         }
         return [
             'n_activities_completion_cfg' => self::count_completion_configured(),
@@ -428,8 +431,10 @@ class telemetry {
         if (!$DB->get_manager()->table_exists('local_annoto_completion')) {
             return 0;
         }
-        return (int)$DB->count_records('local_annoto_completion',
-            ['enabled' => self::COMPLETION_TRACKING_AUTOMATIC]);
+        return (int)$DB->count_records(
+            'local_annoto_completion',
+            ['enabled' => self::COMPLETION_TRACKING_AUTOMATIC]
+        );
     }
 
     /**
@@ -712,8 +717,10 @@ class telemetry {
      */
     public static function record_error(string $area, string $code): void {
         try {
-            if (!in_array($area, self::ERROR_AREAS, true) || !preg_match('/^[a-z0-9_]{1,40}$/', $code)
-                    || !self::is_enabled()) {
+            if (
+                !in_array($area, self::ERROR_AREAS, true) || !preg_match('/^[a-z0-9_]{1,40}$/', $code)
+                    || !self::is_enabled()
+            ) {
                 return;
             }
             $key = $area . ':' . $code;
