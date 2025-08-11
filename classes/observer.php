@@ -69,12 +69,9 @@ class observer {
 
         // FIXME: optimize this.
         foreach ($comprecords as $record) {
-            foreach (
-                annoto_completiondata::get_records(
+            foreach (annoto_completiondata::get_records(
                     ['completionid' => $record->get('id'),
-                    'userid' => $event->relateduserid]
-                ) as $data
-            ) {
+                    'userid' => $event->relateduserid]) as $data) {
                 $data->delete();
             }
         }
